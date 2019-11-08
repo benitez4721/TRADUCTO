@@ -1,0 +1,115 @@
+Gramatica libre de contexto para reconocer frases en el lenguaje GuardUsb
+
+Marco benitez 13-10137
+Orlando Chaparro 12-11499
+
+S -> '|[' A ']|'		
+   | '|[' ']|'				
+		
+A -> 'declare' B C   		
+   | C		     						
+		
+B -> D							
+   | B ';' D			
+		
+D -> E ':' F 
+		
+	
+F -> G
+   | F ',' G
+
+G -> 'int' 		
+   | 'bool'    	
+   | 'array' '[' K '..' K ']'
+
+I -> H ':=' J		
+	
+E -> H									
+   | E ',' H		
+		
+H -> 'TkId' 	                  
+		
+J -> L					
+   | H 			
+   | N				
+   | 'atoi' '(' J ')'	
+   | 'size' '(' J ')'	
+   | 'min' '(' J ')'	 
+   | 'max' '(' J ')'	 
+   | J '+' J	
+   | J '-' J 	
+   | J '*' J 	
+   | J '/' J   
+   | J '%' J  
+   | J ',' J   
+   | '(' J ')'			
+   | '-' J 	
+   | J '/\\' J 
+   | J '\\/' J 
+   | J '==' J   
+   | J '!=' J  
+   | '!' J			 
+   | J '<' J 	 
+   | J '<=' J   
+   | J '>=' J   
+   | J '>' J  	 
+		
+L -> K
+   | M
+			
+	
+N -> H '[' J ']' 
+   | H O
+		
+O -> '(' J ':' J ')' O	
+   | '(' J ':' J ')' 				
+			
+K -> 'TkNum' 	
+		
+M -> 'true'	
+   | 'false'	
+		
+
+C -> C ';' X	
+   | X			    	
+		
+X -> I			
+   | P				
+   | Q 				
+   | 'if' T 'fi' 			
+   | V		
+   | 'do' W 'od'  		
+   | '|[' A ']|' 		
+	  	
+
+P -> 'read' H 	
+
+	 	
+Q -> 'print' R		
+   | 'println' R 	    
+	 	
+
+R -> J 					
+   | S 						
+   | R  '||' J 		
+   | R  '||' S		
+	 	
+
+S -> 'TkString'	
+
+	 	
+T -> J '-->' C U 	
+   | J '-->' C 
+			
+
+U -> '[]' J '-->' C U
+   | '[]' J '-->' C
+	 
+	
+V -> 'for' H 'in' J 'to' J '-->' '|[' A ']|' 'rof'
+	
+	 	
+W -> J '-->' C 		
+  |  J '-->' C U
+
+	
