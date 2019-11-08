@@ -25,9 +25,9 @@ class Programa
 	# Imprime una de las siguientes estructuras:
 	#
 	# Block			|	Block
-	#    <CUERPO>	|	
+	#  CUERPO	    |	
 
-	# def <CUERPO> en clase Cuerpo.
+	# def CUERPO en clase Cuerpo.
 	def to_s()
 		s = ""
 		if @cuerpo != nil
@@ -61,14 +61,14 @@ class Cuerpo
 	# Imprime una de las siguientes estructuras:
 	#
 	# Block						|	Block				
-	#  Declare					|	 <INSTRUCTION_LIST>
-	#   <DECLARE_LIST>			|	  
-	#  <INSTRUCTION_LIST> 	    |	
+	#  Declare					|	 INSTRUCTION_LIST
+	#   DECLARE_LIST			|	  
+	#  INSTRUCTION_LIST 	    |	
 	#   	                    |		
 	# 
 	#
-	# def <DECLARE_LIST> en clase ListaDeclaracion.
-	# def <INSTRUCTION_LIST> en clase Instrucciones.
+	# def DECLARE_LIST en clase ListaDeclaracion.
+	# def INSTRUCTION_LIST en clase Instrucciones.
 	def to_s(tab)
 		s = (" "*tab) + "Block\n"
 		if @l_declaraciones != nil
@@ -101,14 +101,13 @@ class ListaDeclaracion
 
 	# -- Funcion de impresion --
 	# Imprime una estructura de la forma:
-	#
-	# Declare
-	#    .    
-	#    .    
-	#    .    
+	# 
+	# Declare         |	Declare
+	#  Declaracion    |  declaracion 
+	#   sequencing    |
+	#    Declaracion  |
 	# 
 	#
-	# def <DECLARE> en clase Declaracion.
 	def to_s(tab)
 		s = ""
 		if @l_declaraciones != nil
@@ -139,11 +138,11 @@ class Declaracion
 	# -- Funcion de impresion --
 	# Imprime una de las siguientes estructuras:
 	#
-	# Declare                       |	Declare
-	#  <LISTA_IDENTIFICADORES>      |	  <LISTA_IDENTIFICADORES>
-	#   sequencing
+	# 
+	#  LISTA_IDENTIFICADORES     
+	#   
 	#
-	# def <LISTA_IDENTIFICADORES> en clase ListaId.
+	# def LISTA_IDENTIFICADORES en clase ListaId.
 	def to_s(tab)
 		s = ""
 		if @l_identificadores != nil
@@ -176,13 +175,13 @@ class ListaId
 	# -- Funcion de impresion --
 	# Imprime una estructura de la forma:
 	#
-	# <IDENTIFICADOR>
+	# IDENTIFICADOR
 	#        .
 	#        .
 	#        .
-	# <IDENTIFICADOR>
+	# IDENTIFICADOR
 	#
-	# def <IDENTIFICADOR> en clase Identificador.
+	# def IDENTIFICADOR en clase Identificador.
 	def to_s(tab)
 		s = ""
 		if @lista_identificador != nil
@@ -245,13 +244,11 @@ class Instrucciones
 	# -- Funcion de impresion --
 	# Imprime una estructura de la forma:
 	# 
-	# <INSTRUCTION>
-	#       .
-	#       .
-	#       .	      
-	# <INSTRUCTION>
+	# INSTRUCTION   | INSTRUCTION
+	#  secuencing   |  
+	#   INSTRUCTION |	
 	#
-	# def <INSTRUCTION> en clase Instruccion.
+	# def INSTRUCTION en clase Instruccion.
 	def to_s(tab)
 		s = ""
 		if @instrucciones != nil
@@ -281,7 +278,7 @@ class Instruccion
 		@instruccion = instruccion
 	end
 
-
+	# -- Funcion de impresion --
 	def to_s(tab)
 		s = ""
 		s << @instruccion.to_s(tab)
@@ -306,6 +303,7 @@ class Asignacion
 		@expresion = expresion
 	end
 
+	# -- Funcion de impresion --
 	def to_s(tab) 
 		return (" "*tab) + "Asig\n " + @identificador.to_s(tab) + (" "*(tab+1)) + "Exp\n" + @expresion.to_s(tab+2) 
 	end
@@ -325,6 +323,7 @@ class Entrada
 		@identificador = identificador
 	end
 
+	# -- Funcion de impresion --
 	def to_s(tab)
 		return (" "*tab) + "Read\n" + @identificador.to_s(tab+1)
 	end
@@ -338,7 +337,7 @@ class Salida
 
 	# -- Atributos --
 	#
-	# l_imprimir : contiene una lista de identificador a imprimir
+	# l_imprimir : contiene una lista de expresiones a imprimir
 	# salto      : contiene si debe imprimir o no un salto
 	attr_accessor :l_imprimir, :salto
 
@@ -347,6 +346,7 @@ class Salida
 		@salto = salto
 	end
 
+	# -- Funcion de impresion --
 	def to_s(tab)
 		if @salto == "SALTO"
 			return (" "*tab) + "Println\n" + @l_imprimir.to_s(tab+1) 
@@ -371,6 +371,7 @@ class Imprimir
 		@impresion = impresion
 	end
 
+	# -- Funcion de impresion --
 	def to_s(tab)
 		s = ""
 		if @lista_impresion != nil
@@ -402,6 +403,9 @@ class Str
 
 end
 
+# -- Clase String --
+#
+# Representa el nodo de un Condicional
 class Condicional
 
 	attr_accessor :condicion, :lista_instrucciones1, :lista_instrucciones2
@@ -427,6 +431,9 @@ class Condicional
 
 end
 
+# -- Clase IteradorFor --
+#
+# Representa el nodo de un IteradorFor
 class IteradorFor
 
 	attr_accessor :id, :exp1, :exp2, :cuerpo
@@ -447,6 +454,9 @@ class IteradorFor
 
 end
 
+# -- Clase IteratorDo --
+#
+# Representa el nodo de un IteratorDo
 class IteratorDo
 
 	attr_accessor :condicion, :lista_instrucciones1, :lista_instrucciones2
@@ -472,6 +482,9 @@ class IteratorDo
 
 end
 
+# -- Clase Guardia --
+#
+# Representa el nodo de una Guardia
 class Guardia
 
 	attr_accessor :condicion, :lista_instrucciones1, :lista_instrucciones2
@@ -495,6 +508,9 @@ class Guardia
 	end
 end
 
+# -- Clase ListArrayAsig --
+#
+# Representa el nodo de un ListArrayAsig
 class ListArrayAsig
 	
 	attr_accessor :identificador, :exp1, :exp2, :lista_exp
@@ -504,7 +520,8 @@ class ListArrayAsig
 		@exp2 = exp2
 		@lista_exp = lista_exp
 	end
-	
+
+	#-- Funcion de impresion --
 	def to_s(tab,id)
 		s =""
 		if @lista_exp != nil
@@ -517,6 +534,9 @@ class ListArrayAsig
 	end	
 end			
 
+# -- Clase ArrayAsig --
+#
+# Representa el nodo de un ArrayAsig
 class ArrayAsig
 	
 	attr_accessor :Identificador, :ListArrayAsig
@@ -525,13 +545,17 @@ class ArrayAsig
 		@identificador = identificador
 		@listArrayAsig = listArrayAsig
 	end
-	
+
+	#-- Funcion de impresion --
 	def to_s(tab)
 		
 		return (" "*tab) +"ArrayAsig\n" + @listArrayAsig.to_s(tab+1,@identificador)
 	end
 end	
 
+# -- Clase ArrayConsult --
+#
+# Representa el nodo de un ArrayConsult
 class ArrayConsult
 
 	attr_accessor :identificador, :exp
@@ -547,6 +571,9 @@ class ArrayConsult
 	end
 end			
 
+# -- Clase Literal --
+#
+# Representa el nodo de un Literal
 class Literal
 
 	attr_accessor :valor, :tipo
@@ -557,13 +584,15 @@ class Literal
 	end
 
 	# -- Funcion de impresion --
-	# Imprime una estructura de la forma:
 	def to_s(tab)
 		return (" "*tab) + "Literal " + ": " + @valor.to_s() + "\n"
 	end
 
 end
 
+# -- Clase Conversion --
+#
+# Representa el nodo de una Conversion
 class Conversion
 
 	attr_accessor :op, :identificador
@@ -578,6 +607,7 @@ class Conversion
 		return (" "*tab) + @op.to_s() + @identificador.to_s(tab+1)
 	end	
 end
+
 
 class Min < Conversion
 
@@ -634,8 +664,6 @@ class ExpresionBinaria
 		@oper2 = oper2
 	end
 
-	# -- Funcion de impresion --
-	# Imprime una estructura de la forma:
 	def to_s(tab) 
 		return (" "*tab) + @op.to_s + "\n" + @oper1.to_s(tab+1) + @oper2.to_s(tab+1)
 	end

@@ -10,7 +10,7 @@ require_relative 'lexer'
 require_relative 'parserGusb'
 
 
-
+#--MAIN--
 def main
 	ARGV[0] =~ /\w+\.gusb/
 	if $&.nil?
@@ -36,19 +36,7 @@ def main
 		lex.err.each do |error|
 			puts "Error: Unexpected character #{error.token} in row #{error.fila}, colum #{error.columna} "
 			return
-		end	
-	#else
-	#	lex.tk.each do |token|
-	#		if token.tipo == "TkId"
-	#			puts "TkId(\"#{token.token}\") #{token.fila} #{token.columna}"
-	#		elsif token.tipo == "TkNum"
-	#			puts "TkNum(\"#{token.token}\") #{token.fila} #{token.columna}"
-	#		elsif token.tipo == "TkString"
-	#			puts "TkString(#{token.token}) #{token.fila} #{token.columna}"
-	#		else
-	#			puts "#{token.tipo} #{token.fila} #{token.columna}"
-	#		end
-	#	end			
+		end			
 						
 	end
 	#for token in lex.parserTk

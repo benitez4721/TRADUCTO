@@ -68,7 +68,7 @@ $reservadas ={
 class Token
 	# Atributos del token
 	# token: nombre del token
-	# tipo: de que tipo es el token (palabra reservada, signo, numerico...)
+	# tipo: de que tipo es el token 
 	# fila: numero de fila en donde esta el token
 	# columna: numero de columna en donde esta el token
 	attr_accessor :token, :tipo, :fila, :columna

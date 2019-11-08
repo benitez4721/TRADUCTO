@@ -36,7 +36,7 @@ class ParserGusb
 
 	rule
 
-	# Regla para reconocer codigos en programas, ademas de inicial
+	# Regla para reconocer codigos en programas
 	PROGRAMA
 		: '|[' CUERPO ']|'		{ result = Programa.new(val[1]) }
 		| '|[' ']|'				{ result = Programa.new(nil) }
@@ -219,7 +219,7 @@ class ErrorSintactico < RuntimeError
 	end
 
 	def to_s
-		"ERROR: fila: " + @token.fila.to_s() + ", columna: " + @token.columna.to_s() + ", token inesperado: #{@token.token} \n"   # EL PROBLEMA ES ACA
+		"ERROR: fila: " + @token.fila.to_s() + ", columna: " + @token.columna.to_s() + ", token inesperado: #{@token.token} \n"  
 	end
 end
 
